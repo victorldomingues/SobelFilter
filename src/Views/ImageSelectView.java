@@ -124,8 +124,8 @@ public class ImageSelectView extends javax.swing.JFrame {
             int height = bi.getHeight();
             System.out.println("w: " + width);
             System.out.println("h: " + height);
-            
-            
+
+            System.out.println("test git");
             
         } catch (IOException ex) {
             Logger.getLogger(ImageSelectView.class.getName()).log(Level.SEVERE, null, ex);
