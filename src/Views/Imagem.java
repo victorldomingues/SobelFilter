@@ -12,7 +12,9 @@ import java.io.File;
  * @author lab656
  */
 public class Imagem {
-
+    
+    
+    
     private File file;
 
     private String path;
