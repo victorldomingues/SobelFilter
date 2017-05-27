@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views;
+package Models;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ import java.io.File;
  *
  * @author lab656
  */
-public class Imagem {
+public class Image {
     
     
     
@@ -46,7 +46,7 @@ public class Imagem {
         this.path = file.getAbsolutePath();
     }
 
-    public Imagem() {
+    public Image() {
 
     }
 

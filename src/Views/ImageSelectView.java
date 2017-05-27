@@ -5,12 +5,15 @@
  */
 package Views;
 
+import Models.Image;
+import Services.ImageService;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,13 +22,16 @@ import javax.swing.JOptionPane;
  */
 public class ImageSelectView extends javax.swing.JFrame {
 
-    private Imagem imagem = new Imagem();
+    private final Image _image = new Image();
+
+    private final ImageService _imageService = new ImageService(_image);
 
     /**
      * Creates new form ImageSelectView
      */
     public ImageSelectView() {
         initComponents();
+        SetInvisibleComponents();
     }
 
     /**
@@ -39,10 +45,10 @@ public class ImageSelectView extends javax.swing.JFrame {
 
         SelectImageBtn = new javax.swing.JButton();
         SelectImageLabel = new javax.swing.JLabel();
-        FileName = new java.awt.Label();
         AplyFilterBtn = new javax.swing.JButton();
-        FilePathInput = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        AplyFilterLabel = new javax.swing.JLabel();
+        AfterImage = new javax.swing.JPanel();
+        BeforeImage = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sobel FIlter");
@@ -56,8 +62,6 @@ public class ImageSelectView extends javax.swing.JFrame {
 
         SelectImageLabel.setText("Selecione uma imagem");
 
-        FileName.setText("label1");
-
         AplyFilterBtn.setText("Aplicar Filtro");
         AplyFilterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +69,29 @@ public class ImageSelectView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Caminho da imagem");
+        AplyFilterLabel.setText("Aplicar Filtro");
+
+        javax.swing.GroupLayout AfterImageLayout = new javax.swing.GroupLayout(AfterImage);
+        AfterImage.setLayout(AfterImageLayout);
+        AfterImageLayout.setHorizontalGroup(
+            AfterImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+        );
+        AfterImageLayout.setVerticalGroup(
+            AfterImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 381, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout BeforeImageLayout = new javax.swing.GroupLayout(BeforeImage);
+        BeforeImage.setLayout(BeforeImageLayout);
+        BeforeImageLayout.setHorizontalGroup(
+            BeforeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+        );
+        BeforeImageLayout.setVerticalGroup(
+            BeforeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,32 +100,35 @@ public class ImageSelectView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(AplyFilterBtn)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(SelectImageLabel)
-                        .addGap(88, 88, 88)
-                        .addComponent(FileName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SelectImageLabel)
                     .addComponent(SelectImageBtn)
-                    .addComponent(FilePathInput, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(330, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AplyFilterLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BeforeImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(AfterImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SelectImageLabel)
-                    .addComponent(FileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SelectImageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelectImageBtn)
-                .addGap(121, 121, 121)
-                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(FilePathInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AfterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BeforeImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(AplyFilterLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AplyFilterBtn)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,31 +136,23 @@ public class ImageSelectView extends javax.swing.JFrame {
 
     private void SelectImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectImageBtnActionPerformed
         // TODO add your handling code here:
-        SelectFileView selectFileView = new SelectFileView(imagem);
-        selectFileView.setVisible(rootPaneCheckingEnabled);
-        FileName.setText(imagem.getFileName());
+
+        SetInvisibleComponents();
+
+        int selecionado = FileChooser.showDialog(this, "Selecione o arquivo");
+
+        if (selecionado == 1) {
+            return;
+        }
+
+        _image.setFile(FileChooser.getSelectedFile());
+
+        SetVisibleComponents();
     }//GEN-LAST:event_SelectImageBtnActionPerformed
 
     private void AplyFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AplyFilterBtnActionPerformed
         // TODO add your handling code here:
-        imagem.setFile(new File(FilePathInput.getText()));
-
-        BufferedImage bi;
-        try {
-            
-            bi = ImageIO.read(imagem.getFile());
-            int width = bi.getWidth();
-            int height = bi.getHeight();
-            System.out.println("w: " + width);
-            System.out.println("h: " + height);
-
-            System.out.println("test git");
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ImageSelectView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
+        _imageService.AplyFilter();
     }//GEN-LAST:event_AplyFilterBtnActionPerformed
 
     /**
@@ -169,12 +190,25 @@ public class ImageSelectView extends javax.swing.JFrame {
         });
     }
 
+    private void SetInvisibleComponents() {
+        AplyFilterBtn.setVisible(false);
+        AplyFilterLabel.setVisible(false);
+        AfterImage.setVisible(false);
+    }
+
+    private void SetVisibleComponents() {
+        AplyFilterBtn.setVisible(true);
+        AplyFilterLabel.setVisible(true);
+        AfterImage.setVisible(true);
+    }
+
+    final JFileChooser FileChooser = new JFileChooser();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AfterImage;
     private javax.swing.JButton AplyFilterBtn;
-    private java.awt.Label FileName;
-    private javax.swing.JTextField FilePathInput;
+    private javax.swing.JLabel AplyFilterLabel;
+    private javax.swing.JPanel BeforeImage;
     private javax.swing.JButton SelectImageBtn;
     private javax.swing.JLabel SelectImageLabel;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

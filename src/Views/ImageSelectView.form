@@ -27,17 +27,22 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Component id="AplyFilterBtn" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="SelectImageLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                      <Component id="FileName" min="-2" pref="153" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="SelectImageLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="SelectImageBtn" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="FilePathInput" alignment="0" min="-2" pref="244" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="AplyFilterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="BeforeImage" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="AfterImage" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace pref="330" max="32767" attributes="0"/>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,19 +50,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="SelectImageLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="FileName" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="SelectImageLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="SelectImageBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="FilePathInput" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="AfterImage" max="32767" attributes="0"/>
+                  <Component id="BeforeImage" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="AplyFilterLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="AplyFilterBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="192" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,11 +81,6 @@
         <Property name="text" type="java.lang.String" value="Selecione uma imagem"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Label" name="FileName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="label1"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="AplyFilterBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aplicar Filtro"/>
@@ -89,12 +89,40 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AplyFilterBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="FilePathInput">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="AplyFilterLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Caminho da imagem"/>
+        <Property name="text" type="java.lang.String" value="Aplicar Filtro"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JPanel" name="AfterImage">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="381" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JPanel" name="BeforeImage">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </SubComponents>
 </Form>
