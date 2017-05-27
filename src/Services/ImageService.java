@@ -70,7 +70,6 @@ public class ImageService {
                 }
                 
                 
-                
                 imgH[i][j] = Convolution(mascara);
                 imgV[i][j] = Correlation(mascara);
                 

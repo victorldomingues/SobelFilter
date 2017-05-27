@@ -58,6 +58,10 @@ public class Image {
         return _image;
     }
 
+    public void SetImage(BufferedImage image) {
+        _image = image;
+    }
+
     private void transFormImage() {
         try {
             _image = ImageIO.read(_file);
