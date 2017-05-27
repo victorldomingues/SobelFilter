@@ -38,12 +38,79 @@ public class ImageService {
 
     private void Process() {
 
+
+
         int width = _image.getImage().getWidth();
         int height = _image.getImage().getHeight();
-        
+
         System.out.println("w: " + width);
         System.out.println("h: " + height);
 
         _processedImage = new Image();
+
+        //imagem que será alterada horizontalmente
+        int[][] imgH = new int[_image.getImage().getWidth()][_image.getImage().getHeight()];
+        //imagem que será alterada verticalmente
+        int[][] imgV = new int[_image.getImage().getWidth()][_image.getImage().getHeight()];
+
+        for (int i = 0; i < _image.getImage().getWidth(); i++) {
+            for (int j = 0; j < _image.getImage().getHeight(); j++) {
+                
+                int [][]mascara = new int[3][3];
+                int cont1=-1;
+                
+                //preeche a mascara 3x3 corretamente
+                for (int k = 0; k < mascara.length; k++) {
+                    int cont2=-1;
+                    for (int l = 0; l < mascara.length; l++) {
+                        mascara[k][l]=_image.getImage().getRGB(i+cont1, j+cont2);
+                        cont2++;
+                    }
+                    cont1++;
+                }
+                
+                
+                
+                imgH[i][j] = Convolution(mascara);
+                imgV[i][j] = Correlation(mascara);
+                
+            }
+        }
+
     }
+
+    public int Convolution(int[][] mascara) {
+        int[][] Gx = {{-1, 0, 1},
+                     {-2, 0, 2},
+                     {-1, 0, 1}};
+        
+        int retorno=0;
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                retorno += Gx[i][j]*mascara[i][j];
+            }
+        }
+        
+        
+        return retorno;
+    }
+    
+    public int Correlation(int[][] mascara){
+        int[][] Gy = {{1, 2, 1},
+                     {0, 0, 0},
+                     {-1, -2, -1}};
+        
+        int retorno=0;
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                retorno += Gy[i][j]*mascara[i][j];
+            }
+        }
+        
+        
+        return retorno;        
+    }
+
 }
