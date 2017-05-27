@@ -5,7 +5,7 @@
  */
 package Services;
 
-import Models.Image;
+import Models.ImageModel;
 import Views.ImageSelectView;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,11 +19,11 @@ import javax.imageio.ImageIO;
  */
 public class ImageService {
 
-    private Image _image;
+    private ImageModel _image;
 
-    private Image _processedImage;
+    private ImageModel _processedImage;
 
-    public ImageService(Image i) {
+    public ImageService(ImageModel i) {
         _image = i;
     }
 
@@ -31,7 +31,7 @@ public class ImageService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Image AplyFilter() {
+    public ImageModel AplyFilter() {
         Process();
         return _processedImage;
     }
@@ -46,7 +46,7 @@ public class ImageService {
         System.out.println("w: " + width);
         System.out.println("h: " + height);
 
-        _processedImage = new Image();
+        _processedImage = new ImageModel();
 
         //imagem que será alterada horizontalmente
         int[][] imgH = new int[_image.getImage().getWidth()][_image.getImage().getHeight()];

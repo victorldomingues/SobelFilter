@@ -5,11 +5,13 @@
  */
 package Views;
 
-import Models.Image;
+import Models.ImageModel;
 import Services.ImageService;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,7 +32,7 @@ import javax.swing.JPanel;
  */
 public class ImageSelectView extends javax.swing.JFrame {
 
-    private final Image _image = new Image();
+    private final ImageModel _image = new ImageModel();
 
     private final ImageService _imageService = new ImageService(_image);
 
@@ -53,8 +57,8 @@ public class ImageSelectView extends javax.swing.JFrame {
         SelectImageLabel = new javax.swing.JLabel();
         AplyFilterBtn = new javax.swing.JButton();
         AplyFilterLabel = new javax.swing.JLabel();
-        AfterImage = new javax.swing.JPanel();
-        BeforeImage = new javax.swing.JPanel();
+        BeforeImage = new javax.swing.JLabel();
+        AfterImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sobel FIlter");
@@ -77,27 +81,17 @@ public class ImageSelectView extends javax.swing.JFrame {
 
         AplyFilterLabel.setText("Aplicar Filtro");
 
-        javax.swing.GroupLayout AfterImageLayout = new javax.swing.GroupLayout(AfterImage);
-        AfterImage.setLayout(AfterImageLayout);
-        AfterImageLayout.setHorizontalGroup(
-            AfterImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
-        );
-        AfterImageLayout.setVerticalGroup(
-            AfterImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
-        );
+        BeforeImage.setBackground(new java.awt.Color(204, 204, 204));
+        BeforeImage.setForeground(new java.awt.Color(102, 102, 102));
+        BeforeImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BeforeImage.setText("Pré visualização (Escolha uma Imagem)");
+        BeforeImage.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(), javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(), null)));
 
-        javax.swing.GroupLayout BeforeImageLayout = new javax.swing.GroupLayout(BeforeImage);
-        BeforeImage.setLayout(BeforeImageLayout);
-        BeforeImageLayout.setHorizontalGroup(
-            BeforeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
-        );
-        BeforeImageLayout.setVerticalGroup(
-            BeforeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        AfterImage.setBackground(new java.awt.Color(204, 204, 204));
+        AfterImage.setForeground(new java.awt.Color(102, 102, 102));
+        AfterImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AfterImage.setText("Resultado Final");
+        AfterImage.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,18 +100,17 @@ public class ImageSelectView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BeforeImage, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(AfterImage, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(AplyFilterBtn)
                     .addComponent(SelectImageLabel)
                     .addComponent(SelectImageBtn)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AplyFilterLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BeforeImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(AfterImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(102, Short.MAX_VALUE))
+                        .addComponent(AplyFilterLabel)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,15 +119,15 @@ public class ImageSelectView extends javax.swing.JFrame {
                 .addComponent(SelectImageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelectImageBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AfterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BeforeImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(38, 38, 38)
+                    .addComponent(AfterImage, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BeforeImage, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(AplyFilterLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AplyFilterBtn)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,8 +160,7 @@ public class ImageSelectView extends javax.swing.JFrame {
 
     private void AplyFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AplyFilterBtnActionPerformed
         // TODO add your handling code here:
-        _imageService.AplyFilter();
-        PaintAfter();
+        PaintAfter(_imageService.AplyFilter());
     }//GEN-LAST:event_AplyFilterBtnActionPerformed
 
     /**
@@ -209,7 +201,7 @@ public class ImageSelectView extends javax.swing.JFrame {
     private void SetInvisibleComponents() {
         AplyFilterBtn.setVisible(false);
         AplyFilterLabel.setVisible(false);
-//        AfterImage.setVisible(false);
+//        AfterImage.setVisible(false);     
 //        BeforeImage.setVisible(false);
     }
 
@@ -218,25 +210,22 @@ public class ImageSelectView extends javax.swing.JFrame {
         AplyFilterLabel.setVisible(true);
     }
 
-    private void PaintAfter() {
-//        AfterImage.setVisible(true);
-        AfterImage.setBackground(Color.yellow);
+    private void PaintAfter(ImageModel model) {
+        AfterImage.setText("");
+        AfterImage.setIcon(new ImageIcon(model.getImage()));
     }
 
     private void PaintBefore() {
-        ImagePanel image = new ImagePanel(_image.getImage());
-        this.add(image);
-        this.pack();
-        this.revalidate();
-        this.repaint();
+        BeforeImage.setText("");
+        BeforeImage.setIcon(new ImageIcon(_image.getImage()));
     }
 
     final JFileChooser FileChooser = new JFileChooser();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AfterImage;
+    private javax.swing.JLabel AfterImage;
     private javax.swing.JButton AplyFilterBtn;
     private javax.swing.JLabel AplyFilterLabel;
-    private javax.swing.JPanel BeforeImage;
+    private javax.swing.JLabel BeforeImage;
     private javax.swing.JButton SelectImageBtn;
     private javax.swing.JLabel SelectImageLabel;
     // End of variables declaration//GEN-END:variables

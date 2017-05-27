@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author lab656
  */
-public class Image {
+public class ImageModel {
 
     private File _file;
 
@@ -66,11 +66,11 @@ public class Image {
         try {
             _image = ImageIO.read(_file);
         } catch (IOException ex) {
-            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public Image() {
+    public ImageModel() {
 
     }
 
