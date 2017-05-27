@@ -224,11 +224,11 @@ public class ImageSelectView extends javax.swing.JFrame {
     }
 
     private void PaintBefore() {
-
-        ImageIcon image = new ImageIcon(_image.getImage());
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(label, BorderLayout.CENTER);
+            ImagePanel image = new ImagePanel(_image.getImage());
+            this.add(image);
+            this.pack();
+            this.revalidate();
+        
     }
 
     final JFileChooser FileChooser = new JFileChooser();
