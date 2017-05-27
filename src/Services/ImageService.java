@@ -38,16 +38,11 @@ public class ImageService {
 
     private void Process() {
 
-        BufferedImage bi;
-        try {
-
-            bi = ImageIO.read(_image.getFile());
-            int width = bi.getWidth();
-            int height = bi.getHeight();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ImageSelectView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int width = _image.getImage().getWidth();
+        int height = _image.getImage().getHeight();
+        
+        System.out.println("w: " + width);
+        System.out.println("h: " + height);
 
         _processedImage = new Image();
     }

@@ -7,14 +7,20 @@ package Views;
 
 import Models.Image;
 import Services.ImageService;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -145,14 +151,24 @@ public class ImageSelectView extends javax.swing.JFrame {
             return;
         }
 
+        System.out.println("SET IMAGE");
+
         _image.setFile(FileChooser.getSelectedFile());
 
         SetVisibleComponents();
+
+        System.out.println("START PAINT");
+
+        PaintBefore();
+
+        System.out.println("END SELCTED");
+
     }//GEN-LAST:event_SelectImageBtnActionPerformed
 
     private void AplyFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AplyFilterBtnActionPerformed
         // TODO add your handling code here:
         _imageService.AplyFilter();
+        PaintAfter();
     }//GEN-LAST:event_AplyFilterBtnActionPerformed
 
     /**
@@ -193,13 +209,26 @@ public class ImageSelectView extends javax.swing.JFrame {
     private void SetInvisibleComponents() {
         AplyFilterBtn.setVisible(false);
         AplyFilterLabel.setVisible(false);
-        AfterImage.setVisible(false);
+//        AfterImage.setVisible(false);
+//        BeforeImage.setVisible(false);
     }
 
     private void SetVisibleComponents() {
         AplyFilterBtn.setVisible(true);
         AplyFilterLabel.setVisible(true);
-        AfterImage.setVisible(true);
+    }
+
+    private void PaintAfter() {
+//        AfterImage.setVisible(true);
+        AfterImage.setBackground(Color.yellow);
+    }
+
+    private void PaintBefore() {
+
+        ImageIcon image = new ImageIcon(_image.getImage());
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(label, BorderLayout.CENTER);
     }
 
     final JFileChooser FileChooser = new JFileChooser();

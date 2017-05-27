@@ -5,17 +5,23 @@
  */
 package Models;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author lab656
  */
 public class Image {
-    
-    
-    
-    private File file;
+
+    private File _file;
+
+    private BufferedImage _image;
 
     private String path;
 
@@ -37,13 +43,27 @@ public class Image {
     private String fileName;
 
     public File getFile() {
-        return file;
+        return _file;
     }
 
     public void setFile(File file) {
-        this.file = file;
+        this._file = file;
         this.fileName = file.getName();
         this.path = file.getAbsolutePath();
+        transFormImage();
+    }
+
+    public BufferedImage getImage() {
+        System.out.println(_image.getHeight());
+        return _image;
+    }
+
+    private void transFormImage() {
+        try {
+            _image = ImageIO.read(_file);
+        } catch (IOException ex) {
+            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Image() {
