@@ -1,7 +1,7 @@
 # SOBEL FILTER
 
-Work done by the students of Computer Science of the University Anhmebi Morumbi.
-It aims to apply the sobel filter on an image, present the results before and after the image
+Study carried out by the students of Computer Science at Anhembi Morumbi University under the guidance of Prof. Dr. Rafael Silveira Xavier
+Its purpose is to apply the sobel filter on an image, to present the results before and after the image.
 
 ## IMPLEMENTED BY
 #### @victorldomingues
