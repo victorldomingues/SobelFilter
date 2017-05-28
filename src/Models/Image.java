@@ -6,7 +6,6 @@
 package Models;
 
 import Services.ImageService;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
@@ -62,10 +61,10 @@ public class Image {
 
     public void SetImage(BufferedImage image) {
         ImageService iS = new ImageService();
-        if (iS.getFileExtension(_file).compareTo("png")==0) {
-            _image = new BufferedImage(image.getWidth(),image.getHeight(),TYPE_INT_ARGB);
-        } else{
-            _image = new BufferedImage(image.getWidth(),image.getHeight(),TYPE_INT_RGB);
+        if (iS.getFileExtension(_file).compareTo("png") == 0) {
+            _image = new BufferedImage(image.getWidth(), image.getHeight(), TYPE_INT_ARGB);
+        } else {
+            _image = new BufferedImage(image.getWidth(), image.getHeight(), TYPE_INT_RGB);
         }
 
     }
