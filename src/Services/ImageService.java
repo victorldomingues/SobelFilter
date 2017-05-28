@@ -6,6 +6,7 @@
 package Services;
 
 import Models.Image;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,9 +64,7 @@ public class ImageService {
 
                 int[][] mascara = new int[3][3];
                 int cont1 = -1;
-               
-          
-                    
+
                 for (int k = 0; k < mascara.length; k++) {
                     int cont2 = -1;
                     for (int l = 0; l < mascara.length; l++) {
@@ -83,10 +82,13 @@ public class ImageService {
                         if (jCount >= (width)) {
                             jCount = 0;
                         }
-                        try{
-                            int rgb =_processedImage.getImage().getRGB(jCount,iCount);
+                        try {
+                            int rgb = 
+                                    (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getRed()
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen())/ 3 ;
                             mascara[k][l] = rgb;
-                        }catch(Exception e){
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
                         cont2++;
@@ -98,10 +100,9 @@ public class ImageService {
                 imgV[j][i] = Correlation(mascara);
 
             }
-                
-            
+
         }
-        
+
         for (int k = 0; k < height; k++) {
             for (int l = 0; l < width; l++) {
                 imgFinal[l][k] = (int) Math.sqrt((imgH[l][k] * imgH[l][k]) + (imgV[l][k] * imgV[l][k]));
@@ -109,18 +110,18 @@ public class ImageService {
         }
 
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {                
+            for (int j = 0; j < width; j++) {
                 int rgb = imgFinal[j][i];
                 if (rgb < 0) {
-                    rgb = 0;                
+                    rgb = 0;
                 }
                 if (rgb > 255) {
-                    rgb=255;
+                    rgb = 255;
                 }
-               _processedImage.getImage().setRGB(j, i, rgb);               
+                _processedImage.getImage().setRGB(j, i, rgb);
             }
         }
-        
+
     }
 
     public int Convolution(int[][] mascara) {
@@ -149,7 +150,7 @@ public class ImageService {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int maskValue = mascara[i][j];
-                retorno += Gy[i][j] * maskValue;                
+                retorno += Gy[i][j] * maskValue;
             }
         }
 
