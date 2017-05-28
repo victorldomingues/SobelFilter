@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  */
 public class ImageService {
 
-    private final String outputpath = "C:\\Users\\Victor-PC\\Desktop";
+    private final String outputpath = "";
     private Image _image;
 
     private Image _processedImage;
@@ -55,14 +55,17 @@ public class ImageService {
         int[][] imgH = new int[width][height];
         //imagem que será alterada verticalmente
         int[][] imgV = new int[width][height];
+        //imagem que terá o valor a ser passado para _processedImage
+        int[][] imgFinal = new int[width][height];
 
-        for (int i = 0; i < _processedImage.getImage().getWidth(); i++) {
-            for (int j = 0; j < _processedImage.getImage().getHeight(); j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
 
                 int[][] mascara = new int[3][3];
                 int cont1 = -1;
-
-                //preeche a mascara 3x3 corretamente
+               
+          
+                    
                 for (int k = 0; k < mascara.length; k++) {
                     int cont2 = -1;
                     for (int l = 0; l < mascara.length; l++) {
@@ -71,29 +74,53 @@ public class ImageService {
                         if (iCount == -1) {
                             iCount = height - 1;
                         }
-                        if (iCount == (height)) {
+                        if (iCount >= (height)) {
                             iCount = 0;
                         }
                         if (jCount == -1) {
                             jCount = width - 1;
                         }
-                        if (jCount == (width)) {
+                        if (jCount >= (width)) {
                             jCount = 0;
                         }
-                        mascara[k][l] = _processedImage.getImage().getRGB(iCount, jCount);
+                        try{
+                            int rgb =_processedImage.getImage().getRGB(jCount,iCount);
+                            mascara[k][l] = rgb;
+                        }catch(Exception e){
+                            System.out.println(e.getMessage());
+                        }
                         cont2++;
                     }
                     cont1++;
                 }
 
-                imgH[i][j] = Convolution(mascara);
-                imgV[i][j] = Correlation(mascara);
-                
-                _processedImage.getImage().setRGB(j, i, imgV[i][j]);
+                imgH[j][i] = Convolution(mascara);
+                imgV[j][i] = Correlation(mascara);
 
+            }
+                
+            
+        }
+        
+        for (int k = 0; k < height; k++) {
+            for (int l = 0; l < width; l++) {
+                imgFinal[l][k] = (int) Math.sqrt((imgH[l][k] * imgH[l][k]) + (imgV[l][k] * imgV[l][k]));
             }
         }
 
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {                
+                int rgb = imgFinal[j][i];
+                if (rgb < 0) {
+                    rgb = 0;                
+                }
+                if (rgb > 255) {
+                    rgb=255;
+                }
+               _processedImage.getImage().setRGB(j, i, rgb);               
+            }
+        }
+        
     }
 
     public int Convolution(int[][] mascara) {
@@ -121,7 +148,8 @@ public class ImageService {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                retorno += Gy[i][j] * mascara[i][j];
+                int maskValue = mascara[i][j];
+                retorno += Gy[i][j] * maskValue;                
             }
         }
 
