@@ -5,8 +5,11 @@
  */
 package Models;
 
+import Services.ImageService;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -58,7 +61,13 @@ public class Image {
     }
 
     public void SetImage(BufferedImage image) {
-        _image = image;
+        ImageService iS = new ImageService();
+        if (iS.getFileExtension(_file).compareTo("png")==0) {
+            _image = new BufferedImage(image.getWidth(),image.getHeight(),TYPE_INT_ARGB);
+        } else{
+            _image = new BufferedImage(image.getWidth(),image.getHeight(),TYPE_INT_RGB);
+        }
+
     }
 
     private void transFormImage() {

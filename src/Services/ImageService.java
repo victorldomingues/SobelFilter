@@ -88,10 +88,21 @@ public class ImageService {
                             jCount = 0;
                         }
                         try {
-                            int rgb
-                                    = (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
+                            int rgb;
+                            if (ext.compareTo("png")==0) {
+                                rgb
+                                   = (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
                                     + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getRed()
-                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen()) / 3;
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen()
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getAlpha())/ 4;
+                               
+                            }else{
+                                rgb
+                                   = (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getRed()
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen()) /3;
+                            }
+                                   
                             mask[k][l] = rgb;
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
@@ -122,7 +133,12 @@ public class ImageService {
                 if (rgb > 255) {
                     rgb = 255;
                 }
-                rgb = (rgb << 16 | rgb << 8 | rgb);
+                int alpha=255;
+                int red=255;
+                int gree;
+                int blue;
+                
+                rgb = (rgb << 24|rgb << 16 | rgb << 8 | rgb);
                 _processedImage.getImage().setRGB(j, i, rgb);
             }
         }
@@ -168,7 +184,7 @@ public class ImageService {
         return returnValue;
     }
 
-    private String getFileExtension(File file) {
+    public String getFileExtension(File file) {
         String name = file.getName();
         try {
             return name.substring(name.lastIndexOf(".") + 1);
