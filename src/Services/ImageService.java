@@ -16,11 +16,12 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author Treeze-Dev
+ * @author Victor-PC
  */
 public class ImageService {
 
     private final String outputpath = "";
+
     private Image _image;
 
     private Image _processedImage;
@@ -40,36 +41,40 @@ public class ImageService {
 
     private void Process() {
 
+        String ext = getFileExtension(_image.getFile());
         _processedImage = new Image();
-        File outputfile = new File(outputpath + "result.jpg");
+
+        File outputfile = new File(outputpath + "result." + ext);
+
         try {
-            ImageIO.write(_image.getImage(), "jpg", outputfile);
+
+            ImageIO.write(_image.getImage(), ext, outputfile);
             _processedImage.setFile(outputfile);
         } catch (IOException ex) {
             Logger.getLogger(ImageService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         int width = _processedImage.getImage().getWidth();
+
         int height = _processedImage.getImage().getHeight();
 
-        //imagem que será alterada horizontalmente
         int[][] imgH = new int[width][height];
-        //imagem que será alterada verticalmente
+
         int[][] imgV = new int[width][height];
-        //imagem que terá o valor a ser passado para _processedImage
+
         int[][] imgFinal = new int[width][height];
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
 
-                int[][] mascara = new int[3][3];
-                int cont1 = -1;
+                int[][] mask = new int[3][3];
+                int counter1 = -1;
 
-                for (int k = 0; k < mascara.length; k++) {
-                    int cont2 = -1;
-                    for (int l = 0; l < mascara.length; l++) {
-                        int iCount = i + cont1;
-                        int jCount = j + cont2;
+                for (int k = 0; k < mask.length; k++) {
+                    int counter2 = -1;
+                    for (int l = 0; l < mask.length; l++) {
+                        int iCount = i + counter1;
+                        int jCount = j + counter2;
                         if (iCount == -1) {
                             iCount = height - 1;
                         }
@@ -83,30 +88,29 @@ public class ImageService {
                             jCount = 0;
                         }
                         try {
-                            int rgb = 
-                                    (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
+                            int rgb
+                                    = (new Color(_processedImage.getImage().getRGB(jCount, iCount)).getBlue()
                                     + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getRed()
-                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen())/ 3 ;
-                            mascara[k][l] = rgb;
+                                    + new Color(_processedImage.getImage().getRGB(jCount, iCount)).getGreen()) / 3;
+                            mask[k][l] = rgb;
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
-                        cont2++;
+                        counter2++;
                     }
-                    cont1++;
+                    counter1++;
                 }
 
-                imgH[j][i] = Convolution(mascara);
-                imgV[j][i] = Correlation(mascara);
+                imgH[j][i] = Convolution(mask);
+                imgV[j][i] = Correlation(mask);
 
+                int convulation = imgH[j][i];
+                int correlation = imgV[j][i];
+                int finalValue = (int) Math.sqrt((convulation * convulation) + (correlation * correlation));
+
+                imgFinal[j][i] = finalValue;
             }
 
-        }
-
-        for (int k = 0; k < height; k++) {
-            for (int l = 0; l < width; l++) {
-                imgFinal[l][k] = (int) Math.sqrt((imgH[l][k] * imgH[l][k]) + (imgV[l][k] * imgV[l][k]));
-            }
         }
 
         for (int i = 0; i < height; i++) {
@@ -122,39 +126,54 @@ public class ImageService {
             }
         }
 
+        try {
+            ImageIO.write(_processedImage.getImage(), ext, outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    public int Convolution(int[][] mascara) {
+    private int Convolution(int[][] mask) {
         int[][] Gx = {{-1, 0, 1},
         {-2, 0, 2},
         {-1, 0, 1}};
 
-        int retorno = 0;
+        int returnValue = 0;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                retorno += Gx[i][j] * mascara[i][j];
+                returnValue += Gx[i][j] * mask[i][j];
             }
         }
 
-        return retorno;
+        return returnValue;
     }
 
-    public int Correlation(int[][] mascara) {
+    private int Correlation(int[][] mask) {
         int[][] Gy = {{1, 2, 1},
         {0, 0, 0},
         {-1, -2, -1}};
 
-        int retorno = 0;
+        int returnValue = 0;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                int maskValue = mascara[i][j];
-                retorno += Gy[i][j] * maskValue;
+                int maskValue = mask[i][j];
+                returnValue += Gy[i][j] * maskValue;
             }
         }
 
-        return retorno;
+        return returnValue;
+    }
+
+    private String getFileExtension(File file) {
+        String name = file.getName();
+        try {
+            return name.substring(name.lastIndexOf(".") + 1);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
 }
