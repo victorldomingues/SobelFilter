@@ -122,6 +122,7 @@ public class ImageService {
                 if (rgb > 255) {
                     rgb = 255;
                 }
+                rgb = (rgb << 16 | rgb << 8 | rgb);
                 _processedImage.getImage().setRGB(j, i, rgb);
             }
         }
