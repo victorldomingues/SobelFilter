@@ -59,10 +59,8 @@
               <Component id="SelectImageBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BeforeImage" alignment="3" min="-2" pref="396" max="-2" attributes="0"/>
-                      <Component id="AfterImage" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="AfterImage" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
+                  <Component id="BeforeImage" min="-2" pref="396" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
