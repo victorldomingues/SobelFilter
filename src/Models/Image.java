@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author lab656
  */
-public class ImageModel {
+public class Image {
 
     private File _file;
 
@@ -54,7 +54,6 @@ public class ImageModel {
     }
 
     public BufferedImage getImage() {
-        System.out.println(_image.getHeight());
         return _image;
     }
 
@@ -66,11 +65,11 @@ public class ImageModel {
         try {
             _image = ImageIO.read(_file);
         } catch (IOException ex) {
-            Logger.getLogger(ImageModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ImageModel() {
+    public Image() {
 
     }
 
